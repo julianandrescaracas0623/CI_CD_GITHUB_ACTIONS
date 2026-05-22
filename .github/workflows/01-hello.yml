@@ -8,11 +8,21 @@ jobs: # definimos los jobs o tareas que se van a ejecutar en el workflow
   hello: # definimos el job o tarea; puede ser cualquier nombre descriptivo
     runs-on: ubuntu-24.04 # entorno en el que se ejecuta el job
     steps: # pasos que se ejecutan en el job
-      - name: saludar
-        run: echo "Hello World"
 
-      - name: mostrar la fecha y hora
-        run: date
+      - name: saludar # definimos el nombre del paso
+        run: echo "Hello World" # comando para saludar
 
-      - name: mostrar archivos disponibles
-        run: ls -la
+      - name: mostrar la fecha y hora # definimos el nombre del paso
+        run: date # comando para mostrar la fecha y hora
+
+      - name: mostrar archivos disponibles # definimos el nombre del paso
+        run: ls -la # comando para mostrar los archivos disponibles
+
+
+  repo-files: # para recuperar los archivos del repositorio
+    runs-on: ubuntu-24.04 # entorno en el que se ejecuta el job
+    steps: # pasos que se ejecutan en el job
+    
+        - name: Descargar  codigo del repositorio 
+          uses: actions/checkout@v4 # action para descargar el codigo del repositorio
+      
