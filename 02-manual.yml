@@ -1,0 +1,19 @@
+name: 02 - manual # workflow para ejecutar tareas manualmente
+  
+on:
+  workflow_dispatch: # dispatch hace que el workflow se pueda ejecutar manualmente desde la interfaz de github
+
+jobs:
+  manual:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Mostrar fecha y hora # definimos el nombre del paso
+        run: date # comando para mostrar la fecha y hora
+      - name: Mostrar archivos disponibles # definimos el nombre del paso
+        run: ls -la # comando para mostrar los archivos disponibles
+      - name: Mostrar usuario # definimos el nombre del paso
+        run: whoami # comando para mostrar el usuario
+      - name: Mostrar directorio de trabajo # definimos el nombre del paso
+        run: pwd # comando para mostrar el directorio de trabajo
+      - name: Mostrar contenido del directorio de trabajo
+        run: ls -la # comando para mostrar el contenido del directorio de trabajo
