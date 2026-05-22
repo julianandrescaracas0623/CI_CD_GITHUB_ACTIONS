@@ -1,0 +1,18 @@
+name: 01 - hello # colcamos nombre del workflow
+
+on: # definimos cuando se va a ejecutar el workflow
+  push: # en este ejemplo se ejecuta cuando se hace un push a la rama main
+    branches: [main] # se ejecuta en la rama main
+
+jobs: # definimos los jobs o tareas que se van a ejecutar en el workflow
+  hello: # definimos el job o tarea; puede ser cualquier nombre descriptivo
+    runs-on: ubuntu-24.04 # entorno en el que se ejecuta el job
+    steps: # pasos que se ejecutan en el job
+      - name: saludar
+        run: echo "Hello World"
+
+      - name: mostrar la fecha y hora
+        run: date
+
+      - name: mostrar archivos disponibles
+        run: ls -la
