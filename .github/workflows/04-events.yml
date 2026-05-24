@@ -1,0 +1,17 @@
+name: 04 - events # workflow para ejecutar tareas cuando se producen eventos
+
+on: 
+  issues:
+    types: [opened, closed, reopened, edited]
+  issue_comment:
+    types: [created]
+
+jobs:
+  ispect-event:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: inspeccionar evento
+        run: |
+          echo "Evento: ${{ github.event_name }}"
+          echo "Issue: ${{ github.event.issue.title }}"
+          echo "Comment: ${{ github.event.comment.body }}"

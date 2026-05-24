@@ -1,0 +1,12 @@
+name: 03- schedule
+
+on: # definimos cuando se va a ejecutar el workflow
+  schedule: # definimos la frecuencia de ejecucion del workflow
+    - cron: '0 9 * * MON' # se ejecuta cada lunes a las 09:00 UTC
+
+jobs: # definimos los jobs o tareas que se van a ejecutar en el workflow
+  schedule:
+    runs-on: ubuntu-24.04 # entorno en el que se ejecuta el job
+    steps:
+      - name: saludar # definimos el nombre del paso
+        run: echo "Scheduled run" # comando para saludar
