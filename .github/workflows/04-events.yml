@@ -9,6 +9,9 @@ on:
 jobs:
   ispect-event:
     runs-on: ubuntu-24.04
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
       - name: inspeccionar evento
         run: |
