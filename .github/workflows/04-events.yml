@@ -26,4 +26,4 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
-            gh issue comment "$ISSUE_NUMBER" "Gracias por tu comentario. Nosotros lo tomaremos en cuenta." -R "$GITHUB_REPOSITORY"
+            gh issue comment "$ISSUE_NUMBER" --body "Gracias por tu comentario. Nosotros lo tomaremos en cuenta." -R "$GITHUB_REPOSITORY"
