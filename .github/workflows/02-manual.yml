@@ -2,18 +2,55 @@ name: 02 - manual # workflow para ejecutar tareas manualmente
   
 on:
   workflow_dispatch: # dispatch hace que el workflow se pueda ejecutar manualmente desde la interfaz de github
+    inputs: # inputs son los parametros que se pueden pasar al workflow
+      log_level: # los log_level son los niveles de log que se pueden pasar al workflow
+        description: "Nivel de log a mostrar" # descripcion del parametro 
+        required: true # si es true, el parametro es requerido
+        default: "info" # valor por defecto del parametro
+        type: choice #tipo de valor
+        options: [info, debug,warning,error]    #opciones a seleccionar    
+        
+
+      environment: # podemos especificar el entorno que queremos utilizar
+        description: "Entorno"
+        type: environment
+
+      dry_run: # dry_run ejecuta todo pero no aplica los cambios
+        description: "Ejecutar en modo simulacion (sin cambios reales)"
+        required: false
+        default: false
+        type: boolean
+
+      reason:
+        description: "aca se expresa el motivo de la ejecucion"
+        required: false
+        default: "Manual de ejecucion"
+        type: string
 
 jobs:
   manual:
     runs-on: ubuntu-24.04
     steps:
-      - name: Mostrar fecha y hora # definimos el nombre del paso
-        run: date # comando para mostrar la fecha y hora
-      - name: Mostrar archivos disponibles # definimos el nombre del paso
-        run: ls -la # comando para mostrar los archivos disponibles
-      - name: Mostrar usuario # definimos el nombre del paso
-        run: whoami # comando para mostrar el usuario
-      - name: Mostrar directorio de trabajo # definimos el nombre del paso
-        run: pwd # comando para mostrar el directorio de trabajo
-      - name: Mostrar contenido del directorio de trabajo
-        run: ls -la # comando para mostrar el contenido del directorio de trabajo
+      - name: Mostrar todos los inputs
+        env:
+          LOG_LEVEL: ${{ inputs.log_level }}
+          ENVIRONMENT: ${{ inputs.environment }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          REASON: ${{ inputs.reason }}
+        run: |
+          echo "LOG_LEVEL: $LOG_LEVEL"
+          echo "ENVIRONMENT: $ENVIRONMENT"
+          echo "DRY_RUN: $DRY_RUN"
+          echo "REASON: $REASON"
+
+      - name: deploy (solo si no es dry_run)
+        if: ${{ !inputs.dry_run }}
+        env:
+          ENVIRONMENT: ${{ inputs.environment }}
+        run: |
+          echo "deploy to $ENVIRONMENT"
+
+      - name: solo log si es dry-run
+        if: ${{inputs.dry_run}}
+        run: |
+            echo "Dry run: no changeds applied"
